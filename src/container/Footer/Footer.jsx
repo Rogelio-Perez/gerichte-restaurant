@@ -1,39 +1,40 @@
-import React, { useEffect } from 'react'
-import { FiFacebook, FiTwitter, FiInstagram } from 'react-icons/fi'
-import { motion, useAnimation } from 'framer-motion'
-import { useInView } from 'react-intersection-observer'
+import React, { useEffect } from "react"
+import { FiFacebook, FiTwitter, FiInstagram } from "react-icons/fi"
+import { motion, useAnimation } from "framer-motion"
+import { useInView } from "react-intersection-observer"
 
-import { FooterOverlay, Newsletter  } from '../../components'
-import { images } from '../../constants'
-import './Footer.css'
+import { FooterOverlay, Newsletter } from "../../components"
+import { images } from "../../constants"
+import "./Footer.css"
 
-const Footer = () => { 
-
-  const {ref, inView} = useInView({
-    threshold: 0.2
+const Footer = () => {
+  const { ref, inView } = useInView({
+    threshold: 0.2,
   })
 
   const footer = useAnimation()
 
-  useEffect(() => {
+  useEffect(
+    () => {
+      if (!inView) {
+        footer.start({
+          opacity: 0,
+        })
+      }
 
-    if(!inView) {
-      footer.start({
-        opacity: 0
-      })
-    }
-
-    if (inView) {
-      footer.start({
-        opacity: 1,
-        transition: {
-          ease: 'easeInOut', delay: 1, duration: 3
-        }
-      })
-    }
-
-
-  }, [inView])
+      if (inView) {
+        footer.start({
+          opacity: 1,
+          transition: {
+            ease: "easeInOut",
+            delay: 1,
+            duration: 3,
+          },
+        })
+      }
+    },
+    [inView]
+  )
 
   return (
     <div className="app__footer section__padding" id="login">
@@ -50,8 +51,16 @@ const Footer = () => {
 
         <div className="app__footer-links_logo">
           <img src={images.gericht} alt="footer_logo" />
-          <p className="p__opensans">&quot;The best way to find yourself is to lose yourself in the service of others.&quot;</p>
-          <img src={images.spoon} className="spoon__img" style={{ marginTop: 15 }} />
+          <p className="p__opensans">
+            &quot;The best way to find yourself is to lose yourself in the
+            service of others.&quot;
+          </p>
+          <img
+            src={images.spoon}
+            className="spoon__img"
+            style={{ marginTop: 15 }}
+            alt="spoon"
+          />
           <div className="app__footer-links_icons">
             <FiFacebook />
             <FiTwitter />
@@ -71,7 +80,6 @@ const Footer = () => {
       <div className="footer__copyright">
         <p className="p__opensans">2021 Gericht. All Rights reserved.</p>
       </div>
-
     </div>
   )
 }
